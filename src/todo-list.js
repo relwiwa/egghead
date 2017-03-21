@@ -1,27 +1,40 @@
 import expect from 'expect';
 import deepFreeze from 'deep-freeze';
 
+// state contains individual todo
+// state is undefined for ADD_TODO action
+const todo = (state, action) => {
+  switch(action.type) {
+    case 'ADD_TODO':
+      return {
+        id: action.id,
+        text: action.text,
+        completed: false
+      };
+
+    case 'TOGGLE_TODO':
+      if (state.id !== action.id) {
+        return state;
+      }
+
+      return Object.assign({}, state, {
+        completed: !state.completed
+      });
+    default:
+      return state;
+  }
+
+}
+
 const todos = (state = [], action) => {
   switch(action.type) {
     case 'ADD_TODO':
       return [
         ...state,
-        {
-          id: action.id,
-          text: action.text,
-          completed: false
-        }
+        todo(undefined, action)
       ];
     case 'TOGGLE_TODO':
-      return state.map(todo => {
-        if (todo.id !== action.id) {
-          return todo;
-        }
-
-        return Object.assign({}, todo, {
-          completed: !todo.completed
-        });
-      });
+      return state.map(t => todo(t, action));
 
     default:
       return state;
