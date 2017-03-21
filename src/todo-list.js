@@ -1,5 +1,6 @@
 import expect from 'expect';
 import deepFreeze from 'deep-freeze';
+import { createStore } from 'redux';
 
 // state contains individual todo
 // state is undefined for ADD_TODO action
@@ -40,6 +41,35 @@ const todos = (state = [], action) => {
       return state;
   }
 };
+
+const visibilityFilter = (state = 'SHOW_ALL', action) => {
+  switch(action.type) {
+    case 'SET_VISIBILITY_FILTER':
+      return action.filter;
+    default:
+      return state;
+  }
+};
+
+// - initial state is empty object
+// - as a result, child reducers get called with undefined
+// - this leads to child redcucers setting their initial states
+const todoApp = (state = {}, action) => {
+  return {
+    todos: todos(
+      state.todos,
+      action
+    ),
+    visibilityFilter: visibilityFilter(
+      state.visibilityFilter,
+      action
+    )
+  };
+}
+
+const store = createStore(todoApp);
+
+// TESTING
 
 const testAddTodo = () => {
   const stateBefore = [];
