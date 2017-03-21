@@ -17,15 +17,14 @@ const counter = (state = 0, action) => {
     - store.subscribe(): act upon state changes by subscribing */
 const store = createStore(counter);
 
-console.log(store.getState());
-
-store.dispatch({ type: 'INCREMENT' });
-
-console.log(store.getState());
-
-store.subscribe(() => {
+// refactor subscription
+const render = () => {
   document.body.innerText = store.getState();
-});
+}
+store.subscribe(render);
+
+// render initial value
+render();
 
 document.addEventListener('click', () => {
   store.dispatch({ type: 'INCREMENT' });
