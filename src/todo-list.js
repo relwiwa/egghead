@@ -1,6 +1,6 @@
 import expect from 'expect';
 import deepFreeze from 'deep-freeze';
-import { createStore, combineReducers } from 'redux';
+import { createStore } from 'redux';
 
 // state contains individual todo
 // state is undefined for ADD_TODO action
@@ -50,6 +50,28 @@ const visibilityFilter = (state = 'SHOW_ALL', action) => {
       return state;
   }
 };
+
+// recreation of combineReducers function
+// it gets passed an object, and each key holds a reducer
+const combineReducers = (reducers) => {
+  return (state = {}, action) => {
+    // retrieve all keys of reducers object and apply reduce operation
+    return Object.keys(reducers).reduce(
+      // initial value for nextState is empty object
+      (nextState, key) => {
+        // for each key (that corresponds to one reducer), respective
+        // reducer gets called and result gets saved as nextState
+        nextState[key] = reducers[key](
+          state[key],
+          action
+        );
+        return nextState;
+      },
+      // initial value for nextState is empty object
+      {}
+    )
+  }
+}
 
 // - combineReducers returns reducer function that is similiar
 //   to the reducer function that was setup manually in an earlier lesson
