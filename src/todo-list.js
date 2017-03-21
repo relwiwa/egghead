@@ -1,6 +1,8 @@
 import expect from 'expect';
 import deepFreeze from 'deep-freeze';
-import { createStore } from 'redux';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { createStore, combineReducers } from 'redux';
 
 // state contains individual todo
 // state is undefined for ADD_TODO action
@@ -51,28 +53,6 @@ const visibilityFilter = (state = 'SHOW_ALL', action) => {
   }
 };
 
-// recreation of combineReducers function
-// it gets passed an object, and each key holds a reducer
-const combineReducers = (reducers) => {
-  return (state = {}, action) => {
-    // retrieve all keys of reducers object and apply reduce operation
-    return Object.keys(reducers).reduce(
-      // initial value for nextState is empty object
-      (nextState, key) => {
-        // for each key (that corresponds to one reducer), respective
-        // reducer gets called and result gets saved as nextState
-        nextState[key] = reducers[key](
-          state[key],
-          action
-        );
-        return nextState;
-      },
-      // initial value for nextState is empty object
-      {}
-    )
-  }
-}
-
 // - combineReducers returns reducer function that is similiar
 //   to the reducer function that was setup manually in an earlier lesson
 // - ES6 shorthand is used following convention to give reducers the name
@@ -83,6 +63,54 @@ const todoApp = combineReducers({
 });
 
 const store = createStore(todoApp);
+
+
+// UI
+
+let nextTodoId = 0;
+class TodoApp extends Component {
+  render() {
+    return (
+      <div>
+        {/* input value is not linked to application state */}
+        <input ref={node => {
+          this.input = node;
+        }} />
+        <button
+          onClick={() => {
+            store.dispatch({
+              type: 'ADD_TODO',
+              text: this.input.value,
+              id: nextTodoId++
+            });
+            // happens in ui, not via store state
+            this.input.value = '';
+          }}
+        >
+          Add Todo
+        </button>
+        <ul>
+          {this.props.todos.map(todo => 
+            <li key={todo.id}>
+              {todo.text}
+            </li>
+          )}
+        </ul>
+      </div>
+    );
+  };
+}
+
+const render = () => {
+  ReactDOM.render(
+    <TodoApp todos={store.getState().todos} />,
+    document.getElementById('root')
+  );
+};
+
+store.subscribe(render);
+render();
+
 
 // TESTING
 
