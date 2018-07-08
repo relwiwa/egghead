@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack');
 
 module.exports = {
   // REQUIRED: webpackHotServerMiddleware is expecting two webpack configs,
@@ -28,5 +29,15 @@ module.exports = {
         use: 'css-loader/locals'
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1,
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('development')
+      },
+    }),
+  ],
 }
