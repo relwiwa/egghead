@@ -13,6 +13,10 @@ const UniversalTab = universal(({ tab }) => import(`./${tab}`), {
   minDelay: 500,
 });
 
+const Named = universal(import('./Named'), {
+  key: 'Named',
+});
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -58,6 +62,9 @@ export default class App extends React.Component {
         <button onClick={ () => this.setState({ selected: 'Broken' }) }>
           Broken
         </button>
+        <div>
+          <Named />
+        </div>
       </div>
     );
   }
