@@ -1,27 +1,45 @@
 import React from 'react';
 import universal from 'react-universal-component';
 
+import Loading from './Loading';
+
 import './App.css';
 
-const BarTab = universal(import('./Bar'));
-const FooTab = universal(import('./Foo'));
-const HomeTab = universal(import('./Home'));
+const UniversalTab = universal(({ tab }) => import(`./${tab}`), {
+  alwaysDelay: true,
+  loadingTransition: false,
+  minDelay: 500,
+});
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { selected: 'Home' };
+    this.state = {
+      loading: false,
+      selected: 'Home',
+    };
+  }
+
+  loadEnd = () => {
+    this.setState({ loading: false });
+  }
+
+
+  loadStart = () => {
+    this.setState({ loading: true });
   }
 
   render() {
     return (
       <div>
-        { this.state.selected === 'Home' &&
-          <HomeTab /> }
-        { this.state.selected === 'Foo' &&
-          <FooTab /> }
-        { this.state.selected === 'Bar' &&
-          <BarTab /> }
+        {this.state.loading && <Loading />}
+        <div className={this.state.loading ? 'loading' : ''}>
+          <UniversalTab
+            onAfter={this.loadEnd}
+            onBefore={this.loadStart}
+            tab={this.state.selected}
+          />
+        </div>
 
         <button onClick={ () => this.setState({ selected: 'Home' }) }>
           Home
