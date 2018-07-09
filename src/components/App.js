@@ -2,11 +2,13 @@ import React from 'react';
 import universal from 'react-universal-component';
 
 import Loading from './Loading';
+import NotFound from './NotFound';
 
 import './App.css';
 
 const UniversalTab = universal(({ tab }) => import(`./${tab}`), {
   alwaysDelay: true,
+  error: NotFound,
   loadingTransition: false,
   minDelay: 500,
 });
@@ -49,6 +51,9 @@ export default class App extends React.Component {
         </button>
         <button onClick={ () => this.setState({ selected: 'Bar' }) }>
           Bar
+        </button>
+        <button onClick={ () => this.setState({ selected: 'Broken' }) }>
+          Broken
         </button>
       </div>
     );
