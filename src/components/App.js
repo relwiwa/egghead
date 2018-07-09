@@ -15,6 +15,11 @@ const UniversalTab = universal(({ tab }) => import(`./${tab}`), {
   error: NotFound,
   loadingTransition: false,
   minDelay: 500,
+  onLoad(module, info, props, context) {
+    if (module.reducers) {
+      context.store.injectReducers(module.reducers);
+    }
+  },
 });
 
 const Named = universal(import('./Named'), {
@@ -57,7 +62,7 @@ class App extends React.Component {
         </button>
         <button
           onClick={() => selectTab('Foo')}
-          onMouseEnter={() => UniversalTab.preload({ tab: 'Foo' })}
+//          onMouseEnter={() => UniversalTab.preload({ tab: 'Foo' })}
         >
           Foo
         </button>

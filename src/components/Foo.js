@@ -1,7 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { setIndex } from '../actions/foo';
+import foo, { getIndex } from '../reducers/foo';
 
 import './Foo.css';
 
-const Foo = () => <div>Foo</div>;
+export const reducers = { foo };
 
-export default Foo;
+const Foo = ({ index, setIndex }) =>
+  <div>
+    Foo is loaded: {index}
+    <button onClick={() => setIndex(index + 1)}>+</button>
+    <button onClick={() => setIndex(index - 1)}>-</button>
+  </div>;
+
+const mapStateToProps = (state) => ({
+  index: getIndex(state),
+});
+
+const mapDispatchToProps = { setIndex };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Foo);
