@@ -1,13 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
+import { Provider } from 'react-redux';
+
+import configureStore from './configureStore';
 
 import App from './components/App';
 
+const store = configureStore(window.__INITIAL_STATE__);
+
 const render = App => ReactDOM.hydrate(
-  <AppContainer>
-    <App />
-  </AppContainer>,
+  <Provider store={store}>
+    <AppContainer>
+      <App />
+    </AppContainer>
+  </Provider>,
   document.getElementById('root')
 );
 

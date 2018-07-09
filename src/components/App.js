@@ -1,5 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import universal from 'react-universal-component';
+
+import { selectTab } from '../actions/tabs';
+import { getSelectedTab } from '../reducers/tabs';
 
 import Loading from './Loading';
 import NotFound from './NotFound';
@@ -17,12 +21,11 @@ const Named = universal(import('./Named'), {
   key: 'Named',
 });
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: false,
-      selected: 'Home',
     };
   }
 
@@ -36,6 +39,8 @@ export default class App extends React.Component {
   }
 
   render() {
+    const { selected, selectTab } = this.props;
+
     return (
       <div>
         {this.state.loading && <Loading />}
@@ -43,23 +48,23 @@ export default class App extends React.Component {
           <UniversalTab
             onAfter={this.loadEnd}
             onBefore={this.loadStart}
-            tab={this.state.selected}
+            tab={selected}
           />
         </div>
 
-        <button onClick={ () => this.setState({ selected: 'Home' }) }>
+        <button onClick={() => selectTab('Home')}>
           Home
         </button>
         <button
-          onClick={ () => this.setState({ selected: 'Foo' }) }
-          onMouseEnter={ () => UniversalTab.preload({ tab: 'Foo' })}
+          onClick={() => selectTab('Foo')}
+          onMouseEnter={() => UniversalTab.preload({ tab: 'Foo' })}
         >
           Foo
         </button>
-        <button onClick={ () => this.setState({ selected: 'Bar' }) }>
+        <button onClick={() => selectTab('Bar')}>
           Bar
         </button>
-        <button onClick={ () => this.setState({ selected: 'Broken' }) }>
+        <button onClick={() => selectTab('Broken')}>
           Broken
         </button>
         <div>
@@ -69,3 +74,11 @@ export default class App extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  selected: getSelectedTab(state),
+});
+
+const mapDispatchToProps = { selectTab };
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

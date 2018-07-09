@@ -2,14 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom/server';
 import { flushChunkNames } from 'react-universal-component/server';
 import flushChunks from 'webpack-flush-chunks';
+import { Provider } from 'react-redux';
+
+import configureStore from '../src/configureStore';
 
 import App from '../src/components/App';
+
+const store = configureStore();
 
 // This gets the clientStats from webpackHotServerMiddleware, you can see a
 // middleware is returned which then sends the html response.
 // For prod you'd pass in the clientStats manually after building with webpack.
 export default ({ clientStats }) => (req, res) => {
-  const app = ReactDOM.renderToString(<App />);
+  const initialState = JSON.stringify(store.getState());
+  const app = ReactDOM.renderToString(
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
   const chunkNames = flushChunkNames();
 
   const {
@@ -34,6 +44,9 @@ export default ({ clientStats }) => (req, res) => {
         ${styles}
       </head>
       <body>
+        <script>
+          window.__INITIAL_STATE__ = ${initialState};
+        </script>
         <div id="root">${app}</div>
         ${cssHash}
         ${js}
