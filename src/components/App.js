@@ -46,7 +46,10 @@ export default class App extends React.Component {
         <button onClick={ () => this.setState({ selected: 'Home' }) }>
           Home
         </button>
-        <button onClick={ () => this.setState({ selected: 'Foo' }) }>
+        <button
+          onClick={ () => this.setState({ selected: 'Foo' }) }
+          onMouseEnter={ () => UniversalTab.preload({ tab: 'Foo' })}
+        >
           Foo
         </button>
         <button onClick={ () => this.setState({ selected: 'Bar' }) }>
