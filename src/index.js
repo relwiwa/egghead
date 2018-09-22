@@ -1,1 +1,1 @@
-import todoList from './todo-list';
+import TodoApp from './todo-app';
