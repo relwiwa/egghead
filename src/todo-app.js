@@ -66,8 +66,6 @@ const todoApp = combineReducers({
   visibilityFilter
 });
 
-export const store = createStore(todoApp);
-
 // UI
 
 class TodoApp extends Component {
@@ -80,29 +78,29 @@ class TodoApp extends Component {
 
   render() {
     const { nextTodoId } = this.state;
+    const { store } = this.props;
 
     return <div>
       <AddTodo
         nextTodoId={nextTodoId}
         onIncrementNextTodoId={() => this.setState({ nextTodoId: nextTodoId + 1})}
+        store={store}
       />
-      <VisibleTodoList />
-      <Footer />
+      <VisibleTodoList
+        store={store}
+      />
+      <Footer
+        store={store}
+      />
     </div>;
   }
 }
 
-const render = () => {
-  ReactDOM.render(
-    // pass all store items as props to TodoApp
-    <TodoApp {...store.getState()} />,
-    document.getElementById('root')
-  );
-};
-
-store.subscribe(render);
-render();
-
+ReactDOM.render(
+  // pass all store items as props to TodoApp
+  <TodoApp store={createStore(todoApp)} />,
+  document.getElementById('root')
+);
 
 // TESTING
 

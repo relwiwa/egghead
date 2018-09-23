@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { store } from './todo-app';
-
 const AddTodo = ({
   nextTodoId,
   onIncrementNextTodoId,
+  store,
 }) => {
   let input;
 

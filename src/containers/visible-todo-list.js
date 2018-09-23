@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
 import TodoList from '../components/todo-list';
-import { store } from '../todo-app';
 
 class VisibleTodoList extends Component {
   componentDidMount() {
+    const { store } = this.props;
     // subscribe returns way to unsubscribe
-    this.unsubscribe = store.subscribe(() => this.forceUpdate);
+    this.unsubscribe = store.subscribe(() => this.forceUpdate());
   }
 
   componentWillUnmount() {
@@ -29,6 +29,7 @@ class VisibleTodoList extends Component {
   };
   
   render() {
+    const { store } = this.props;
     const state = store.getState();
     return <TodoList
       todos={this.getVisibleTodos(
