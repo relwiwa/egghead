@@ -1,7 +1,10 @@
 import React from 'react';
 
+import { store } from './todo-app';
+
 const AddTodo = ({
-  onAddClick,
+  nextTodoId,
+  onIncrementNextTodoId,
 }) => {
   let input;
 
@@ -12,9 +15,14 @@ const AddTodo = ({
     }} />
     <button
       onClick={() => {
-        onAddClick(input.value);
+        store.dispatch({
+          type: 'ADD_TODO',
+          text: input.value,
+          id: nextTodoId,
+        });
         // happens in ui, not via store state
         input.value = '';
+        onIncrementNextTodoId();
       }}
     >
       Add Todo

@@ -68,31 +68,29 @@ const todoApp = combineReducers({
 
 export const store = createStore(todoApp);
 
-
 // UI
 
-let nextTodoId = 0;
-const TodoApp = ({
-  todos,
-  visibilityFilter,
-}) => (
-  <div>
-    <AddTodo
-      onAddClick={text => store.dispatch({
-        type: 'ADD_TODO',
-        text,
-        id: nextTodoId++
-      })}
-    />
-    <VisibleTodoList />
-    <Footer
-      onFilterClick={filter => store.dispatch({
-        type: 'SET_VISIBILITY_FILTER',
-        filter,
-      })}
-    />
-  </div>
-);
+class TodoApp extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      nextTodoId: 0,
+    };
+  }
+
+  render() {
+    const { nextTodoId } = this.state;
+
+    return <div>
+      <AddTodo
+        nextTodoId={nextTodoId}
+        onIncrementNextTodoId={() => this.setState({ nextTodoId: nextTodoId + 1})}
+      />
+      <VisibleTodoList />
+      <Footer />
+    </div>;
+  }
+}
 
 const render = () => {
   ReactDOM.render(
