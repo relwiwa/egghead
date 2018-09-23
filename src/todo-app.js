@@ -19,6 +19,20 @@ export const addTodo = (text) => {
   };
 };
 
+export const setVisibilityFilter = (filter) => {
+  return {
+    type: 'SET_VISIBILITY_FILTER',
+    filter,
+  };
+};
+
+export const toggleTodo = (id) => {
+  return {
+    type: 'TOGGLE_TODO',
+    id,
+  };
+};
+
 // state contains individual todo
 // state is undefined for ADD_TODO action
 const todo = (state, action) => {

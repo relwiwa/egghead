@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 
 import Link from '../components/link';
+import { setVisibilityFilter } from '../todo-app';
 
 // ownProps are container components' own props
 const mapStateToProps = (state, ownProps) => {
@@ -11,10 +12,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onClick: () => dispatch({
-      type: 'SET_VISIBILITY_FILTER',
-      filter: ownProps.filter,
-    })
+    onClick: () => dispatch(setVisibilityFilter(ownProps.filter)),
   };
 }
 
