@@ -6,7 +6,7 @@ import { createStore, combineReducers } from 'redux';
 
 import AddTodo from './add-todo';
 import Footer from './footer';
-import TodoList from './todo-list';
+import VisibleTodoList from './containers/visible-todo-list';
 
 // state contains individual todo
 // state is undefined for ADD_TODO action
@@ -71,24 +71,6 @@ export const store = createStore(todoApp);
 
 // UI
 
-const getVisibleTodos = (
-  todos,
-  filter,
-) => {
-  switch (filter) {
-    case 'SHOW_ALL':
-      return todos;
-    case 'SHOW_COMPLETED':
-      return todos.filter(
-        t => t.completed
-      );
-    case 'SHOW_ACTIVE':
-      return todos.filter(
-        t => !t.completed
-      );
-  }
-};
-
 let nextTodoId = 0;
 const TodoApp = ({
   todos,
@@ -102,16 +84,7 @@ const TodoApp = ({
         id: nextTodoId++
       })}
     />
-    <TodoList
-      todos={getVisibleTodos(
-        todos,
-        visibilityFilter,
-      )}
-      onTodoClick={id => store.dispatch({
-        type: 'TOGGLE_TODO',
-        id,
-      })}
-    />
+    <VisibleTodoList />
     <Footer
       onFilterClick={filter => store.dispatch({
         type: 'SET_VISIBILITY_FILTER',
