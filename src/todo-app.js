@@ -9,6 +9,16 @@ import AddTodo from './add-todo';
 import Footer from './footer';
 import VisibleTodoList from './containers/visible-todo-list';
 
+let nextTodoId = 0;
+
+export const addTodo = (text) => {
+  return {
+    type: 'ADD_TODO',
+    id: nextTodoId++,
+    text,
+  };
+};
+
 // state contains individual todo
 // state is undefined for ADD_TODO action
 const todo = (state, action) => {
@@ -69,27 +79,11 @@ const todoApp = combineReducers({
 
 // UI
 
-class TodoApp extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      nextTodoId: 0,
-    };
-  }
-
-  render() {
-    const { nextTodoId } = this.state;
-
-    return <div>
-      <AddTodo
-        nextTodoId={nextTodoId}
-        onIncrementNextTodoId={() => this.setState({ nextTodoId: nextTodoId + 1})}
-      />
-      <VisibleTodoList />
-      <Footer />
-    </div>;
-  }
-}
+const TodoApp = (props) => <div>
+  <AddTodo />
+  <VisibleTodoList />
+  <Footer />
+</div>;
 
 ReactDOM.render(
   <Provider store={createStore(todoApp)}>

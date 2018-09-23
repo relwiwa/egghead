@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { addTodo } from './todo-app';
+
 let AddTodo = ({
   dispatch,
-  nextTodoId,
-  onIncrementNextTodoId,
 }) => {
   let input;
 
@@ -15,14 +15,9 @@ let AddTodo = ({
     }} />
     <button
       onClick={() => {
-        dispatch({
-          type: 'ADD_TODO',
-          text: input.value,
-          id: nextTodoId,
-        });
+        dispatch(addTodo(input.value));
         // happens in ui, not via store state
         input.value = '';
-        onIncrementNextTodoId();
       }}
     >
       Add Todo
