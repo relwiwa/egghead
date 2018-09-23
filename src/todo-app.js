@@ -2,11 +2,11 @@ import expect from 'expect';
 import deepFreeze from 'deep-freeze';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 
 import AddTodo from './add-todo';
 import Footer from './footer';
-import Provider from './provider';
 import VisibleTodoList from './containers/visible-todo-list';
 
 // state contains individual todo
