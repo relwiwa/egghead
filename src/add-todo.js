@@ -3,6 +3,7 @@ import React from 'react';
 const AddTodo = ({
   nextTodoId,
   onIncrementNextTodoId,
+}, {
   store,
 }) => {
   let input;
@@ -27,6 +28,10 @@ const AddTodo = ({
       Add Todo
     </button>
   </div>;
+};
+
+AddTodo.contextTypes = {
+  store: React.PropTypes.object,
 };
 
 export default AddTodo;

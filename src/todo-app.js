@@ -6,6 +6,7 @@ import { createStore, combineReducers } from 'redux';
 
 import AddTodo from './add-todo';
 import Footer from './footer';
+import Provider from './provider';
 import VisibleTodoList from './containers/visible-todo-list';
 
 // state contains individual todo
@@ -78,27 +79,22 @@ class TodoApp extends Component {
 
   render() {
     const { nextTodoId } = this.state;
-    const { store } = this.props;
 
     return <div>
       <AddTodo
         nextTodoId={nextTodoId}
         onIncrementNextTodoId={() => this.setState({ nextTodoId: nextTodoId + 1})}
-        store={store}
       />
-      <VisibleTodoList
-        store={store}
-      />
-      <Footer
-        store={store}
-      />
+      <VisibleTodoList />
+      <Footer />
     </div>;
   }
 }
 
 ReactDOM.render(
-  // pass all store items as props to TodoApp
-  <TodoApp store={createStore(todoApp)} />,
+  <Provider store={createStore(todoApp)}>
+    <TodoApp  />
+  </Provider>,
   document.getElementById('root')
 );
 

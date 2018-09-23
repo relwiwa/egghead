@@ -4,7 +4,7 @@ import TodoList from '../components/todo-list';
 
 class VisibleTodoList extends Component {
   componentDidMount() {
-    const { store } = this.props;
+    const { store } = this.context;
     // subscribe returns way to unsubscribe
     this.unsubscribe = store.subscribe(() => this.forceUpdate());
   }
@@ -29,7 +29,7 @@ class VisibleTodoList extends Component {
   };
   
   render() {
-    const { store } = this.props;
+    const { store } = this.context;
     const state = store.getState();
     return <TodoList
       todos={this.getVisibleTodos(
@@ -43,5 +43,9 @@ class VisibleTodoList extends Component {
     />
   }
 }
+
+VisibleTodoList.contextTypes = {
+  store: React.PropTypes.object,
+};
 
 export default VisibleTodoList;
