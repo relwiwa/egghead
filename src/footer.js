@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FilterLink from './filter-link';
+import FilterLink from './containers/filter-link';
 
 const Footer = ({
   onFilterClick,
@@ -10,25 +10,19 @@ const Footer = ({
     Show:
     {' '}
     <FilterLink
-      currentFilter={visibilityFilter}
       filter="SHOW_ALL"
-      onClick={onFilterClick}
     >
       All
     </FilterLink>
     {' '}
     <FilterLink
-      currentFilter={visibilityFilter}
       filter="SHOW_ACTIVE"
-      onClick={onFilterClick}
     >
       Active
     </FilterLink>
     {' '}
     <FilterLink
-      currentFilter={visibilityFilter}
       filter="SHOW_COMPLETED"
-      onClick={onFilterClick}
     >
       Completed
     </FilterLink>

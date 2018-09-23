@@ -66,7 +66,7 @@ const todoApp = combineReducers({
   visibilityFilter
 });
 
-const store = createStore(todoApp);
+export const store = createStore(todoApp);
 
 
 // UI
@@ -113,7 +113,6 @@ const TodoApp = ({
       })}
     />
     <Footer
-      currentFilter={visibilityFilter}
       onFilterClick={filter => store.dispatch({
         type: 'SET_VISIBILITY_FILTER',
         filter,
