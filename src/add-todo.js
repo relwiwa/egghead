@@ -1,10 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const AddTodo = ({
+let AddTodo = ({
+  dispatch,
   nextTodoId,
   onIncrementNextTodoId,
-}, {
-  store,
 }) => {
   let input;
 
@@ -15,7 +15,7 @@ const AddTodo = ({
     }} />
     <button
       onClick={() => {
-        store.dispatch({
+        dispatch({
           type: 'ADD_TODO',
           text: input.value,
           id: nextTodoId,
@@ -30,8 +30,9 @@ const AddTodo = ({
   </div>;
 };
 
-AddTodo.contextTypes = {
-  store: React.PropTypes.object,
-};
+/*  default behaviour of connect function without arguments:
+    - do not subscribe to store
+    - inject dispatch function via props */
+AddTodo = connect()(AddTodo);
 
 export default AddTodo;
