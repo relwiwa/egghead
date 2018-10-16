@@ -1,7 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
+import Message from './message';
+
 ReactDOM.render(
-  <div>Hello world</div>,
+  <Message message="Hello world again" />,
   document.getElementById('root')
 );
