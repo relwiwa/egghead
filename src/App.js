@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Switch } from './components/Switch';
+import { Switch } from './components/Switch'
 import Toggle from './components/Toggle';
 
 class App extends Component {
@@ -10,9 +10,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Toggle
-          onToggle={this.onToggle}
-          renderUI={({ on, toggle }) => (
+        <Toggle onToggle={this.onToggle}>
+          {({ on, toggle }) => (
             <div>
               {on ? 'The button is on' : 'The button is off'}
               <Switch on={on} onClick={toggle} />
@@ -22,7 +21,7 @@ class App extends Component {
               </button>
             </div>
           )}
-        />
+        </Toggle>
       </div>
     );
   }

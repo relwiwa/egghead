@@ -2,14 +2,7 @@ import React, { Component } from 'react';
 
 import { Switch } from './Switch';
 
-const renderUI = ({ on, toggle }) => {
-  return <Switch
-    on={on} onClick={toggle}
-  />;
-}
-
 class Toggle extends Component {
-  static defaultProps = { renderUI };
   state = { on: false };
 
   toggle = () => {
@@ -22,7 +15,10 @@ class Toggle extends Component {
   };
 
   render() {
-    return this.props.renderUI({
+    /*  Render props pattern:
+        - You only return this.props.children and call it as a function
+        - You provide any state updates the children might need as arguments */
+    return this.props.children({
       on: this.state.on,
       toggle: this.toggle,
     });
