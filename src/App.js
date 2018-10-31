@@ -9,7 +9,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Toggle onToggle={this.onToggle} />
+        <Toggle onToggle={this.onToggle}>
+          <Toggle.On>The button is on</Toggle.On>
+          <Toggle.Off>The button is off</Toggle.Off>
+          <Toggle.Button />
+        </Toggle>
       </div>
     );
   }
