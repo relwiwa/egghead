@@ -36,8 +36,7 @@ class Toggle extends Component {
     </ToggleConsumer>
   );
 
-  state = { on: false };
-
+  
   toggle = () => {
     this.setState(
       currentState => ({ on: !currentState.on }),
@@ -46,12 +45,15 @@ class Toggle extends Component {
       },
     );
   };
+    
+  state = {
+    on: false,
+    toggle: this.toggle,
+  };
 
   render() {
-    return <ToggleContext.Provider value={{
-      on: this.state.on,
-      toggle: this.toggle,
-    }}>
+    /* pass state object to avoid re-renders due to creation of value object on every render */
+    return <ToggleContext.Provider value={this.state}>
       {this.props.children}
     </ToggleContext.Provider>;
   }
