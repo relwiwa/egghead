@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { meanBy, round, sortBy } from 'lodash';
 
 import books from '../books.json';
@@ -19,13 +20,13 @@ const BookDetail = ({ match , intl}) => {
             <input type="checkbox" id="toggle" hidden/>
             <p>{book.description}</p>
             <label className="BookDetail-descriptionToggle" htmlFor="toggle">
-              Read more
+              <FormattedMessage id="detail.toggle" />
             </label>
           </div>
         </div>
       </div>
 
-      <h3 className="BookDetail-merchantHeading">Purchase this book from:</h3>
+      <h3 className="BookDetail-merchantHeading"><FormattedMessage id="detail.purchase" /></h3>
       <div className="BookDetail-merchants">
         {book.merchants.map((merchant) => (
           <a href={merchant.link} className="Merchant" key={merchant.name}>
@@ -35,7 +36,7 @@ const BookDetail = ({ match , intl}) => {
         ))}
       </div>
 
-      <h2>Reviews</h2>
+      <h2><FormattedMessage id="detail.reviewsHeading" /></h2>
       <h3>Average Rating: {avgRating} ({book.reviews.length} Reviews)</h3>
       <div className="BookDetail-reviews">
         {sortedReviews.map((review) => (
