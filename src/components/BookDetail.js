@@ -53,7 +53,15 @@ const BookDetail = ({ match , intl}) => {
       <FormattedHTMLMessage id="detail.window" values={{ numMerchants: book.merchants.length }} />
 
       <h2><FormattedMessage id="detail.reviewsHeading" /></h2>
-      <h3><FormattedMessage id="detail.averageRating" values={{ avg: avgRating }} /> ({book.reviews.length} Reviews)</h3>
+      <h3>
+        <FormattedMessage
+          id="detail.averageRating"
+          values={{
+            avg: avgRating,
+            count: book.reviews.length,
+          }}
+        />
+      </h3>
       <div className="BookDetail-reviews">
         {sortedReviews.map((review) => (
           <div className="Review" key={review.date}>

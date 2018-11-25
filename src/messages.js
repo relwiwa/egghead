@@ -5,7 +5,12 @@ export default {
       toggle: 'Toggle',
       purchase: 'Purchase this book from:',
       reviewsHeading: 'Reviews',
-      averageRating: 'Average Rating: {avg}',
+      /*  What's going on:
+          `#` will be replaced with `count`
+          `=0` is for the case of `count === 0`, then `No Reviews Yet!` will be rendered
+          `one` is for the case of `count === 1`, so the singular case
+          `other` is for the case of `count > 1`, so the plural case */
+      averageRating: 'Average Rating: {avg} ({count, plural, =0 {No Reviews Yet!} one {# Review} other {# Reviews}})',
       userRating: '{name} rated it: {rating} out of 5',
       window: '<small><em>All {numMerchants} links open in a new window.</em></small>',
     }
@@ -16,7 +21,7 @@ export default {
       toggle: 'Palanca',
       purchase: 'Compre este libro de:',
       reviewsHeading: 'Comentarios',
-      averageRating: 'Puntuación media: {avg}',
+      averageRating: 'Note moyenne: {avg} ({count, plural, =0 {Pas encore de commentaires!} one {# La revue} other {# Avis}})',
       userRating: '{name} clasificado: {rating} de 5',
       window: '<small><em>Los {numMerchants} enlaces se abren en una nueva ventana.</em></small>',
     }
