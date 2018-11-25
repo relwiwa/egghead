@@ -7,6 +7,7 @@ export default {
       reviewsHeading: 'Reviews',
       averageRating: 'Average Rating: {avg}',
       userRating: '{name} rated it: {rating} out of 5',
+      window: '<small><em>All {numMerchants} links open in a new window.</em></small>',
     }
   },
   'es-ES': {
@@ -17,6 +18,7 @@ export default {
       reviewsHeading: 'Comentarios',
       averageRating: 'Puntuación media: {avg}',
       userRating: '{name} clasificado: {rating} de 5',
+      window: '<small><em>Los {numMerchants} enlaces se abren en una nueva ventana.</em></small>',
     }
   },
   'fr-FR': {
@@ -27,6 +29,7 @@ export default {
       reviewsHeading: 'Avis',
       averageRating: 'Note moyenne: {avg}',
       userRating: '{name} L\'a noté: {rating} sur 5',
+      window: '<small><em>Les {numMerchants} liens s\'ouvrent dans une nouvelle fenêtre.</em></small>',
     }
   }
 }

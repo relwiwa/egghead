@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import { meanBy, round, sortBy } from 'lodash';
 
 import books from '../books.json';
@@ -36,6 +36,8 @@ const BookDetail = ({ match , intl}) => {
           </a>
         ))}
       </div>
+
+      <FormattedHTMLMessage id="detail.window" values={{ numMerchants: book.merchants.length }} />
 
       <h2><FormattedMessage id="detail.reviewsHeading" /></h2>
       <h3><FormattedMessage id="detail.averageRating" values={{ avg: avgRating }} /> ({book.reviews.length} Reviews)</h3>
