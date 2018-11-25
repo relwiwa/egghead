@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedDate, FormattedHTMLMessage, FormattedMessage, FormattedRelative, FormattedTime } from 'react-intl';
+import { FormattedDate, FormattedHTMLMessage, FormattedMessage, FormattedNumber, FormattedRelative, FormattedTime } from 'react-intl';
 import { meanBy, round, sortBy } from 'lodash';
 
 import books from '../books.json';
@@ -8,6 +8,11 @@ const BookDetail = ({ match , intl}) => {
   const book = books.find(book => book.id === parseInt(match.params.bookId, 10));
   const sortedReviews = sortBy(book.reviews, 'date').reverse();
   const avgRating = book.reviews.length ? round(meanBy(book.reviews, (r) => r.rating), 2) : 0;
+
+  const locale = (navigator.languages && navigator.languages[0])
+    || navigator.language
+    || navigator.userLanguage
+    || 'en-US';
 
   return (
     <div className="BookDetail">
@@ -33,6 +38,14 @@ const BookDetail = ({ match , intl}) => {
           <a href={merchant.link} className="Merchant" key={merchant.name}>
             <img src={merchant.icon} width="32" height="32" alt={merchant.name}/>
             <strong>{merchant.name}</strong>
+            <p>
+              <FormattedNumber
+                value={merchant.price[locale] || merchant.price['es-ES']}
+                style="currency"
+                currencyDisplay="symbol"
+                currency={locale === 'en-US' ? 'USD' : 'EUR'}
+              />
+            </p>
           </a>
         ))}
       </div>
