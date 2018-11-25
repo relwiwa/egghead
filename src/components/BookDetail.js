@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedDate, FormattedHTMLMessage, FormattedMessage, FormattedTime } from 'react-intl';
+import { FormattedDate, FormattedHTMLMessage, FormattedMessage, FormattedRelative, FormattedTime } from 'react-intl';
 import { meanBy, round, sortBy } from 'lodash';
 
 import books from '../books.json';
@@ -60,6 +60,12 @@ const BookDetail = ({ match , intl}) => {
                   year="numeric"
                   month="long"
                   day="2-digit"
+                />
+                <br />
+                <FormattedRelative
+                  value={new Date(review.date)}
+                  // updateInterval={1000}
+                  style="numeric"
                 />
               </p>
             </div>
