@@ -6,6 +6,7 @@
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
     "enzyme-to-json": "^3.3.4",
+    "intl": "^1.2.5",
     "react": "^16.6.3",
     "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.6.3",
