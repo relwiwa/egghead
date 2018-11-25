@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedDate, FormattedHTMLMessage, FormattedMessage, FormattedNumber, FormattedRelative, FormattedTime } from 'react-intl';
+import { FormattedDate, FormattedHTMLMessage, FormattedMessage, FormattedNumber, FormattedRelative, FormattedTime, injectIntl } from 'react-intl';
 import { meanBy, round, sortBy } from 'lodash';
 
 import books from '../books.json';
@@ -8,11 +8,6 @@ const BookDetail = ({ match , intl}) => {
   const book = books.find(book => book.id === parseInt(match.params.bookId, 10));
   const sortedReviews = sortBy(book.reviews, 'date').reverse();
   const avgRating = book.reviews.length ? round(meanBy(book.reviews, (r) => r.rating), 2) : 0;
-
-  const locale = (navigator.languages && navigator.languages[0])
-    || navigator.language
-    || navigator.userLanguage
-    || 'en-US';
 
   return (
     <div className="BookDetail">
@@ -40,10 +35,10 @@ const BookDetail = ({ match , intl}) => {
             <strong>{merchant.name}</strong>
             <p>
               <FormattedNumber
-                value={merchant.price[locale] || merchant.price['es-ES']}
+                value={merchant.price[intl.locale] || merchant.price['es-ES']}
                 style="currency"
                 currencyDisplay="symbol"
-                currency={locale === 'en-US' ? 'USD' : 'EUR'}
+                currency={intl.locale === 'en-US' ? 'USD' : 'EUR'}
               />
             </p>
           </a>
@@ -94,8 +89,11 @@ const BookDetail = ({ match , intl}) => {
           </div>
         ))}
       </div>
+
+      <textarea placeholder={intl.formatMessage({ id: 'detail.inputPlaceholder'})}></textarea>
+
     </div>
   )
 }
 
-export default BookDetail;
+export default injectIntl(BookDetail);
