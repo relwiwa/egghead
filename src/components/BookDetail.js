@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
+import { FormattedDate, FormattedHTMLMessage, FormattedMessage, FormattedTime } from 'react-intl';
 import { meanBy, round, sortBy } from 'lodash';
 
 import books from '../books.json';
@@ -48,6 +48,19 @@ const BookDetail = ({ match , intl}) => {
               <img src={review.avatar} alt="Avatar"/>
               <p>
                 <FormattedMessage id="detail.userRating" values={{ name: <strong>{review.name}</strong>, rating: review.rating }} />
+                <br />
+                {/* <FormattedDate
+                  value={new Date(review.date)}
+                  year="numeric"
+                  month="long"
+                  day="2-digit"
+                /> */}
+                <FormattedTime
+                  value={new Date(review.date)}
+                  year="numeric"
+                  month="long"
+                  day="2-digit"
+                />
               </p>
             </div>
             <p>{review.body}</p>
